@@ -18,6 +18,12 @@ class AsyncPutOperation : AsyncOperation {
     init(number: Int, put: @escaping (Int) -> ()) {
         self.number = number
         self.put = put
+        super.init()
+        self.name = "put-\(number)"
+    }
+    
+    deinit {
+        print("Deinit", name ?? "UNK")
     }
     
     override func execute() {
@@ -52,7 +58,8 @@ class OperationsTests: XCTestCase {
     
     func testArray() {
         var ar: [Int] = []
-        let queue = OperationQueue()
+        let queue = CustomOperationQueue()
+            .logging()
         let put1 = AsyncPutOperation(number: 1, put: { ar.append($0) })
         put1.completionBlock = {
             print("Block 1")
@@ -84,10 +91,12 @@ class OperationsTests: XCTestCase {
     }
     
     func testAsyncBlock() {
-        let queue = OperationQueue()
+        let queue = CustomOperationQueue()
+            .logging()
+        var str: String?
         let block = AsyncBlockOperation { finish in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: {
-                print("Hey")
+                str = "Hey"
                 finish()
             })
         }
@@ -97,6 +106,7 @@ class OperationsTests: XCTestCase {
         }
         queue.addOperation(block)
         waitForExpectations(timeout: 5.0)
+        XCTAssertEqual(str, "Hey")
     }
     
     static var allTests = [

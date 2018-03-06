@@ -22,3 +22,35 @@ public final class AsyncBlockOperation : AsyncOperation {
     }
     
 }
+
+public final class BlockOperation : AsyncOperation {
+    
+    private var block: () -> ()
+    public init(block: @escaping () -> ()) {
+        self.block = block
+    }
+    
+    public override func execute() {
+        block()
+        finish()
+    }
+    
+    public func addExecutionBlock(_ nextBlock: @escaping () -> ()) {
+        let old = block
+        block = {
+            old()
+            nextBlock()
+        }
+    }
+    
+}
+
+extension OperationQueue {
+    
+    public func addOperations(_ ops: [Operation]) {
+        for operation in ops {
+            self.addOperation(operation)
+        }
+    }
+    
+}

@@ -16,6 +16,10 @@
 		7C178C0D204E845100ED9F37 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C0B204E845100ED9F37 /* AsyncOperation.swift */; };
 		7C178C0E204E845100ED9F37 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C0B204E845100ED9F37 /* AsyncOperation.swift */; };
 		7C178C0F204E845100ED9F37 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C0B204E845100ED9F37 /* AsyncOperation.swift */; };
+		7C178C15204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */; };
+		7C178C16204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */; };
+		7C178C17204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */; };
+		7C178C18204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */; };
 		8933C78E1EB5B82C000D00A4 /* OperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* OperationsTests.swift */; };
 		8933C78F1EB5B82C000D00A4 /* OperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* OperationsTests.swift */; };
 		8933C7901EB5B82D000D00A4 /* OperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7891EB5B82A000D00A4 /* OperationsTests.swift */; };
@@ -55,6 +59,7 @@
 		52D6DA0F1BF000BD002C0205 /* Operations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Operations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C178C06204E843100ED9F37 /* Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		7C178C0B204E845100ED9F37 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOperationQueue.swift; sourceTree = "<group>"; };
 		8933C7891EB5B82A000D00A4 /* OperationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationsTests.swift; sourceTree = "<group>"; };
 		AD2FAA261CD0B6D800659CF4 /* Operations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Operations.plist; sourceTree = "<group>"; };
 		AD2FAA281CD0B6E100659CF4 /* OperationsTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OperationsTests.plist; sourceTree = "<group>"; };
@@ -156,6 +161,7 @@
 			children = (
 				7C178C06204E843100ED9F37 /* Operations.swift */,
 				7C178C0B204E845100ED9F37 /* AsyncOperation.swift */,
+				7C178C14204ED14B00ED9F37 /* CustomOperationQueue.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -474,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C178C0C204E845100ED9F37 /* AsyncOperation.swift in Sources */,
+				7C178C15204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */,
 				7C178C07204E843100ED9F37 /* Operations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C178C0E204E845100ED9F37 /* AsyncOperation.swift in Sources */,
+				7C178C17204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */,
 				7C178C09204E843100ED9F37 /* Operations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C178C0F204E845100ED9F37 /* AsyncOperation.swift in Sources */,
+				7C178C18204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */,
 				7C178C0A204E843100ED9F37 /* Operations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C178C0D204E845100ED9F37 /* AsyncOperation.swift in Sources */,
+				7C178C16204ED14B00ED9F37 /* CustomOperationQueue.swift in Sources */,
 				7C178C08204E843100ED9F37 /* Operations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
