@@ -20,7 +20,7 @@ class AsyncPutOperation : AsyncOperation {
         self.put = put
     }
     
-    override func run() {
+    override func execute() {
         print(number, "Running")
         DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 0.5) {
             guard !self.isCancelled else {
@@ -54,6 +54,9 @@ class OperationsTests: XCTestCase {
         var ar: [Int] = []
         let queue = OperationQueue()
         let put1 = AsyncPutOperation(number: 1, put: { ar.append($0) })
+        put1.completionBlock = {
+            print("Block 1")
+        }
         let put2 = AsyncPutOperation(number: 2, put: { ar.append($0) })
         let obsF = put1.observe(\.isFinished, options: [.old, .new]) { (_, change) in
             print("OP1", "isFinished", change.oldValue!, change.newValue!)
@@ -78,6 +81,22 @@ class OperationsTests: XCTestCase {
         queue.addOperation(put2)
         waitForExpectations(timeout: 5.0)
         XCTAssertEqual(ar, [1, 2])
+    }
+    
+    func testAsyncBlock() {
+        let queue = OperationQueue()
+        let block = AsyncBlockOperation { finish in
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: {
+                print("Hey")
+                finish()
+            })
+        }
+        let expectation = self.expectation(description: "block")
+        block.completionBlock = {
+            expectation.fulfill()
+        }
+        queue.addOperation(block)
+        waitForExpectations(timeout: 5.0)
     }
     
     static var allTests = [

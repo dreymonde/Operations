@@ -63,10 +63,10 @@ open class AsyncOperation : Foundation.Operation {
             return
         }
         state = .executing
-        run()
+        execute()
     }
     
-    open func run() {
+    open func execute() {
         return finish()
     }
     

@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+public final class AsyncBlockOperation : AsyncOperation {
+    
+    public typealias Finish = () -> Void
+    let _run: (@escaping Finish) -> Void
+    
+    public init(run: @escaping (@escaping Finish) -> Void) {
+        self._run = run
+    }
+    
+    public override func execute() {
+        _run({ self.finish() })
+    }
+    
+}
