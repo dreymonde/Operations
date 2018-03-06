@@ -24,24 +24,20 @@ open class CustomOperationQueue : OperationQueue {
         ops.forEach(didEnqueue)
     }
     
-    @discardableResult
-    open func willEnqueue(_ block: @escaping (Operation) -> ()) -> CustomOperationQueue {
+    open func willEnqueue(_ block: @escaping (Operation) -> ()) {
         let current = willEnqueue
         willEnqueue = { op in
             current(op)
             block(op)
         }
-        return self
     }
     
-    @discardableResult
-    open func didEnqueue(_ block: @escaping (Operation) -> ()) -> CustomOperationQueue {
+    open func didEnqueue(_ block: @escaping (Operation) -> ()) {
         let current = didEnqueue
         didEnqueue = { op in
             current(op)
             block(op)
         }
-        return self
     }
     
     private var willCancelAllOperations: () -> Void = { }
@@ -52,33 +48,32 @@ open class CustomOperationQueue : OperationQueue {
         didCancelAllOperations()
     }
     
-    @discardableResult
-    open func willCancelAllOperations(_ block: @escaping () -> ()) -> CustomOperationQueue {
+    open func willCancelAllOperations(_ block: @escaping () -> ()) {
         let current = willCancelAllOperations
         willCancelAllOperations = {
             current()
             block()
         }
-        return self
     }
     
-    @discardableResult
-    open func didCancelAllOperations(_ block: @escaping () -> ()) -> CustomOperationQueue {
+    open func didCancelAllOperations(_ block: @escaping () -> ()) {
         let current = didCancelAllOperations
         didCancelAllOperations = {
             current()
             block()
         }
-        return self
     }
     
 }
 
 extension CustomOperationQueue {
     
-    public func logging() -> CustomOperationQueue {
+    public func logging(shouldLog: @escaping (Operation) -> Bool = { _ in true }) -> CustomOperationQueue {
         var kvos: Set<NSKeyValueObservation> = []
-        return self.willEnqueue { (op) in
+        self.willEnqueue { (op) in
+            guard shouldLog(op) else {
+                return
+            }
             let isExecuting = op.observe(\.isExecuting) { (operation, _) in
                 if operation.isExecuting {
                     print("START", operation.name ?? "UNK")
@@ -93,6 +88,7 @@ extension CustomOperationQueue {
             kvos.insert(isFinished)
             print("ENQUE", op.name ?? "UNK")
         }
+        return self
     }
     
 }
