@@ -57,6 +57,7 @@ open class AsyncOperation : Foundation.Operation {
     
     public final override func start() {
         guard !isCancelled else {
+            print("Finishing because cancelled")
             return finish()
         }
         guard !isFinished else {

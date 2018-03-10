@@ -111,6 +111,20 @@ class OperationsTests: XCTestCase {
         XCTAssertEqual(str, "Hey")
     }
     
+    func testCancel() {
+        let queue = OperationQueue(name: "test-cancel")
+        let op = BlockOperation {
+            print("so-so")
+        }
+        op.cancel()
+        let expectation = self.expectation(description: "on cancelled")
+        op.completionBlock = {
+            expectation.fulfill()
+        }
+        queue.addOperation(op)
+        waitForExpectations(timeout: 5.0)
+    }
+    
     static var allTests = [
         ("testExample", testExample),
     ]
