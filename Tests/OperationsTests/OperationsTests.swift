@@ -60,6 +60,7 @@ class OperationsTests: XCTestCase {
         var ar: [Int] = []
         let queue = CustomOperationQueue()
             .logging()
+        queue.name = "test-array"
         let put1 = AsyncPutOperation(number: 1, put: { ar.append($0) })
         put1.completionBlock = {
             print("Block 1")
@@ -93,6 +94,7 @@ class OperationsTests: XCTestCase {
     func testAsyncBlock() {
         let queue = CustomOperationQueue()
             .logging()
+        queue.name = "test-async-block"
         var str: String?
         let block = AsyncBlockOperation { finish in
             DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.2, execute: {

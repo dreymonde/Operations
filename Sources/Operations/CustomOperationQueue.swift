@@ -65,31 +65,3 @@ open class CustomOperationQueue : OperationQueue {
     }
     
 }
-
-extension CustomOperationQueue {
-    
-    public func logging(shouldLog: @escaping (Operation) -> Bool = { _ in true }) -> CustomOperationQueue {
-        var kvos: Set<NSKeyValueObservation> = []
-        self.willEnqueue { (op) in
-            guard shouldLog(op) else {
-                return
-            }
-            let isExecuting = op.observe(\.isExecuting) { (operation, _) in
-                if operation.isExecuting {
-                    print("START", operation.name ?? "UNK")
-                }
-            }
-            let isFinished = op.observe(\.isFinished) { (operation, _) in
-                if operation.isFinished {
-                    print("FINIS", operation.name ?? "UNK")
-                }
-            }
-            kvos.insert(isExecuting)
-            kvos.insert(isFinished)
-            print("ENQUE", op.name ?? "UNK")
-        }
-        return self
-    }
-    
-}
-
