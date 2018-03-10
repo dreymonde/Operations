@@ -47,6 +47,11 @@ public final class BlockOperation : AsyncOperation {
 
 extension OperationQueue {
     
+    public convenience init(name: String?) {
+        self.init()
+        self.name = name
+    }
+    
     public func addOperations(_ ops: [Operation]) {
         for operation in ops {
             self.addOperation(operation)
