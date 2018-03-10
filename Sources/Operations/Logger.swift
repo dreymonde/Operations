@@ -14,6 +14,7 @@ extension CustomOperationQueue {
         case START
         case FINIS
         case ENQUE
+        case CANCL
     }
     
     private func log(entry: LogEntry, operationName: String?) {
@@ -38,8 +39,14 @@ extension CustomOperationQueue {
                     self.log(entry: .FINIS, operationName: operation.name)
                 }
             }
-            kvos.insert(isExecuting)
-            kvos.insert(isFinished)
+            let isCancelled = op.observe(\.isCancelled) { (operation, _) in
+                if operation.isCancelled {
+                    self.log(entry: .CANCL, operationName: operation.name)
+                }
+            }
+            for observation in [isExecuting, isFinished, isCancelled] {
+                kvos.insert(observation)
+            }
             self.log(entry: .ENQUE, operationName: op.name)
         }
         return self
