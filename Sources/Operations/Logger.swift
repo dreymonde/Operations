@@ -17,10 +17,12 @@ extension CustomOperationQueue {
         case CANCL
     }
     
-    private func log(entry: LogEntry, operationName: String?) {
+    private func log(entry: LogEntry, operation: Operation) {
         let queueName = (self.name ?? "unnamed")
-        let opName = operationName ?? "UNK"
-        print("(OPS) [\(queueName)] \(entry.rawValue) \(opName)")
+        let opName = operation.name ?? "UNK"
+        let address = unsafeBitCast(operation, to: Int.self)
+        let formattedPointer = String(format: "%p", address)
+        print("(OPS) [\(queueName)] \(entry.rawValue) \(opName) (\(formattedPointer))")
     }
     
     public func logging(shouldLog: @escaping (Operation) -> Bool = { _ in true }) -> CustomOperationQueue {
@@ -31,23 +33,23 @@ extension CustomOperationQueue {
             }
             let isExecuting = op.observe(\.isExecuting) { (operation, _) in
                 if operation.isExecuting {
-                    self.log(entry: .START, operationName: operation.name)
+                    self.log(entry: .START, operation: operation)
                 }
             }
             let isFinished = op.observe(\.isFinished) { (operation, _) in
                 if operation.isFinished {
-                    self.log(entry: .FINIS, operationName: operation.name)
+                    self.log(entry: .FINIS, operation: operation)
                 }
             }
             let isCancelled = op.observe(\.isCancelled) { (operation, _) in
                 if operation.isCancelled {
-                    self.log(entry: .CANCL, operationName: operation.name)
+                    self.log(entry: .CANCL, operation: operation)
                 }
             }
             for observation in [isExecuting, isFinished, isCancelled] {
                 kvos.insert(observation)
             }
-            self.log(entry: .ENQUE, operationName: op.name)
+            self.log(entry: .ENQUE, operation: op)
         }
         return self
     }
