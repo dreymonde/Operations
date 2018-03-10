@@ -19,7 +19,7 @@ extension CustomOperationQueue {
     private func log(entry: LogEntry, operationName: String?) {
         let queueName = (self.name ?? "unnamed")
         let opName = operationName ?? "UNK"
-        print("(OPS) [\(queueName)] \(entry.rawValue) : \(opName)")
+        print("(OPS) [\(queueName)] \(entry.rawValue) \(opName)")
     }
     
     public func logging(shouldLog: @escaping (Operation) -> Bool = { _ in true }) -> CustomOperationQueue {
